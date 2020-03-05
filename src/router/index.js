@@ -2,38 +2,52 @@ import Vue from 'vue'
 import Router from 'vue-router'
 const Home = () => import('@/views/home/index.vue')
 const Login = () => import('@/views/login/index.vue')
-const AppCener = () => import ('@/views/appCenter/index.vue');
-const Portal = () => import ('@/views/portal/index.vue');
-const ErrorPage = () => import ('@/views/errorPage/index.vue');
+const AppCener = () => import('@/views/appCenter/index.vue');
+const Portal = () => import('@/views/portal/index.vue');
+const Voice = () => import('@/views/voice/index.vue');
+const Video = () => import('@/views/video/index.vue');
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
+    { path: '/', component: Home },
     {
-      path: '/',
+      path: '/home',
       name: 'home',
       component: Home,
       children: [
         {
-          path: '/appcenter',
+          path: 'appcenter',
           name: 'appcenter',
           component: AppCener
         },
         {
-          path: '/portal',
+          path: 'portal',
           name: 'portal',
           component: Portal
+        },
+        {
+          path: 'voice',
+          name: 'voice',
+          component: Voice
+        },
+        {
+          path: 'video',
+          name: 'video',
+          component: Video
         }
       ]
     },
     {
-      path: '/login',
+      path: '/*',
       name: 'login',
       component: Login
-    },{
-      path: '*',
-      name: 'error',
-      component: ErrorPage
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  next()
+})
+
+export default router;
