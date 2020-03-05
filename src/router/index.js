@@ -1,20 +1,39 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import home from '@/views/home/index.vue'
-import login from '@/views/login/index.vue'
-Vue.use(Router) // aa19911221LWZ
+const Home = () => import('@/views/home/index.vue')
+const Login = () => import('@/views/login/index.vue')
+const AppCener = () => import ('@/views/appCenter/index.vue');
+const Portal = () => import ('@/views/portal/index.vue');
+const ErrorPage = () => import ('@/views/errorPage/index.vue');
+Vue.use(Router)
 
 export default new Router({
   routes: [
     {
       path: '/',
       name: 'home',
-      component: home
+      component: Home,
+      children: [
+        {
+          path: '/appcenter',
+          name: 'appcenter',
+          component: AppCener
+        },
+        {
+          path: '/portal',
+          name: 'portal',
+          component: Portal
+        }
+      ]
     },
     {
       path: '/login',
       name: 'login',
-      component: login
+      component: Login
+    },{
+      path: '*',
+      name: 'error',
+      component: ErrorPage
     }
   ]
 })
